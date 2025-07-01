@@ -12,7 +12,7 @@ struct GuideView: View {
 	
 	// MARK: - properties
 	
-	
+	@Environment(\.presentationMode) var presentationMode
 	
 	
 	// MARK: - body
@@ -50,7 +50,7 @@ struct GuideView: View {
 				Spacer(minLength: 10)
 				
 				Button(action: {
-					print("A button was tapped")
+					presentationMode.wrappedValue.dismiss()
 				}) {
 					Text("Continue".uppercased())
 						.font(.headline)

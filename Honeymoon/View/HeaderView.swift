@@ -12,7 +12,7 @@ struct HeaderView: View {
 	
 	// MARK: - properties
 	
-	
+	@Binding var showGuideView: Bool
 	
 	
 	// MARK: - body
@@ -38,12 +38,15 @@ struct HeaderView: View {
 			Spacer()
 			
 			Button(action: {
-				print("Guide")
+				showGuideView.toggle()
 			}) {
 				Image(systemName: "questionmark.circle")
 					.font(.system(size: 24, weight: .regular))
 			}
 			.accentColor(.primary)
+			.sheet(isPresented: $showGuideView) {
+				GuideView()
+			}
 			
 		} // HStack
 		.padding()
@@ -54,6 +57,8 @@ struct HeaderView: View {
 // MARK: - preview
 
 #Preview {
-	HeaderView()
+	@Previewable @State var showGuide: Bool = false
+	
+	HeaderView(showGuideView: $showGuide)
 		.previewLayout(.fixed(width: 375, height: 80))
 }
