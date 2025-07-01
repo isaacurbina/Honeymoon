@@ -31,6 +31,8 @@ struct ContentView: View {
 			
 			Spacer()
 			
+			FooterView()
+			
 		} // VStack
 	}
 }
