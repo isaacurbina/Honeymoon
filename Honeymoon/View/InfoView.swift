@@ -12,7 +12,7 @@ struct InfoView: View {
 	
 	// MARK: - properties
 	
-	
+	@Environment(\.presentationMode) var presentationMode
 	
 	
 	// MARK: - body
@@ -41,7 +41,7 @@ struct InfoView: View {
 				Spacer(minLength: 10)
 				
 				Button(action: {
-					print("A button was tapped.")
+					presentationMode.wrappedValue.dismiss()
 				}) {
 					Text("Continue".uppercased())
 						.modifier(ButtonModifier())

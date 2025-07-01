@@ -13,6 +13,7 @@ struct HeaderView: View {
 	// MARK: - properties
 	
 	@Binding var showGuideView: Bool
+	@Binding var showInfoView: Bool
 	
 	
 	// MARK: - body
@@ -21,12 +22,15 @@ struct HeaderView: View {
 		HStack {
 			
 			Button(action: {
-				print("Information")
+				showInfoView.toggle()
 			}) {
 				Image(systemName: "info.circle")
 					.font(.system(size: 24, weight: .regular))
 			}
 			.accentColor(.primary)
+			.sheet(isPresented: $showInfoView) {
+				InfoView()
+			}
 			
 			Spacer()
 			
@@ -58,7 +62,8 @@ struct HeaderView: View {
 
 #Preview {
 	@Previewable @State var showGuide: Bool = false
+	@Previewable @State var showInfo: Bool = false
 	
-	HeaderView(showGuideView: $showGuide)
+	HeaderView(showGuideView: $showGuide, showInfoView: $showInfo)
 		.previewLayout(.fixed(width: 375, height: 80))
 }

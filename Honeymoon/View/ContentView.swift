@@ -15,6 +15,7 @@ struct ContentView: View {
 	
 	@State private var showAlert: Bool = false
 	@State private var showGuide: Bool = false
+	@State private var showInfo: Bool = false
 	
 	
 	// MARK: - body
@@ -22,7 +23,7 @@ struct ContentView: View {
 	var body: some View {
 		VStack {
 			
-			HeaderView(showGuideView: $showGuide)
+			HeaderView(showGuideView: $showGuide, showInfoView: $showInfo)
 			
 			Spacer()
 			
