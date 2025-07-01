@@ -12,7 +12,7 @@ struct FooterView: View {
 	
 	// MARK: - properties
 	
-	
+	@Binding var showBookingAlert: Bool
 	
 	
 	// MARK: - body
@@ -26,7 +26,7 @@ struct FooterView: View {
 			Spacer()
 			
 			Button(action: {
-				print("Success!")
+				showBookingAlert.toggle()
 			}) {
 				Text("Book Destination".uppercased())
 					.font(.system(.subheadline, design: .rounded))
@@ -54,6 +54,8 @@ struct FooterView: View {
 // MARK: - preview
 
 #Preview {
-	FooterView()
+	@Previewable @State var showAlert: Bool = false
+	
+	FooterView(showBookingAlert: $showAlert)
 		.previewLayout(.fixed(width: 375, height: 80))
 }
