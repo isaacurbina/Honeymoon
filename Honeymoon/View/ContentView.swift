@@ -17,6 +17,7 @@ struct ContentView: View {
 	@State private var showGuide: Bool = false
 	@State private var showInfo: Bool = false
 	@State private var lastCardIndex: Int = 1
+	@State private var cardRemovalTransition = AnyTransition.trailingBottom
 	@GestureState private var dragState = DragState.inactive
 	private let dragAreaThreshold: CGFloat = 65.0
 	
@@ -119,16 +120,26 @@ struct ContentView: View {
 									break
 								}
 							})
-								.onEnded({ (value) in
+								.onChanged({ (value) in
 									guard case .second(true, let drag?) = value else {
 										return
 									}
 									
-									if drag.translation.width < -self.dragAreaThreshold || drag.translation.width > self.dragAreaThreshold {
-										self.moveCards()
+									if drag.translation.width < -self.dragAreaThreshold {
+										self.cardRemovalTransition = .leadingBottom
 									}
 								})
+									.onEnded({ (value) in
+										guard case .second(true, let drag?) = value else {
+											return
+										}
+										
+										if drag.translation.width < -self.dragAreaThreshold || drag.translation.width > self.dragAreaThreshold {
+											self.moveCards()
+										}
+									})
 						)
+						.transition(self.cardRemovalTransition)
 				} // ForEach
 			} // ZStack
 			.padding(.horizontal)
